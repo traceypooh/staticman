@@ -1,7 +1,5 @@
 name: CICD
 on: push
-env:
-  SEKRIT: ${{ secrets.SEKRIT }}
 jobs:
   cicd:
     runs-on: ubuntu-latest
@@ -16,3 +14,5 @@ jobs:
           NOMAD_TOKEN: ${{ secrets.NOMAD_TOKEN }}
           REGISTRY_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NOMAD_VAR_PORTS: '{ 80 = "http"}'
+          NOMAD_SECRETS: '{ "SEKRIT"="${{ secrets.SEKRIT }}" }'
+
