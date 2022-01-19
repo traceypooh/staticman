@@ -6,9 +6,9 @@ RUN apk add git  && \
 WORKDIR /app
 
 RUN cp config.sample.json  config.production.json  && \
+    env  && \
+    env |fgrep SEKRIT  && \
     echo xxx update config.production.json gitlabToken rsaPrivateKey  && \
     npm i
-
-COPY . .
 
 CMD [ "npm", "start" ]

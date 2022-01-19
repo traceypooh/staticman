@@ -1,5 +1,7 @@
 name: CICD
 on: push
+env:
+  SEKRIT: ${{ secrets.SEKRIT }}
 jobs:
   cicd:
     runs-on: ubuntu-latest
