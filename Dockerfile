@@ -1,14 +1,10 @@
 FROM node:alpine
 
-RUN apk add git  && \
+RUN apk add git bash  && \
     git clone https://github.com/eduardoboucas/staticman.git /app
 
 WORKDIR /app
 
-RUN cp config.sample.json  config.production.json  && \
-    env  && \
-    env |fgrep SEKRIT  && \
-    echo xxx update config.production.json gitlabToken rsaPrivateKey  && \
-    npm i
+RUN npm i
 
-CMD [ "npm", "start" ]
+CMD [ "./entrypoint.sh" ]
