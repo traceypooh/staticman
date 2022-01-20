@@ -1,6 +1,8 @@
 FROM node:alpine
 
-RUN apk add git bash  && \
+ENV NODE_ENV=production
+
+RUN apk add git zsh  && \
     git clone https://github.com/eduardoboucas/staticman.git /app
 
 WORKDIR /app
