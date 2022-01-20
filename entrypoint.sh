@@ -11,4 +11,6 @@ EOF
 
 sed -i 's/NEWLINE/\\n/g' config.production.json
 
+export NODE_ENV=production
+
 exec npm start
