@@ -13,9 +13,10 @@ sed -i 's/NEWLINE/\\n/g' config.production.json
 
 export NODE_ENV=production
 
-npm i http-server
-mkdir /xxx
-cd    /xxx
-/app/node_modules/.bin/http-server -p 80
 
-# exec npm start
+npm start  ||  (
+  npm i http-server
+  mkdir /xxx
+  cd    /xxx
+  /app/node_modules/.bin/http-server -p 80
+)
