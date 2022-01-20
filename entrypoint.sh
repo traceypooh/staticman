@@ -15,7 +15,9 @@ export NODE_ENV=production
 
 
 while true; do
-  ( set +e; npm start )
+  set +e
+  npm start
+  set -e
   echo DIED
   sleep 15
 done
