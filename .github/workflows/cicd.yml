@@ -15,5 +15,4 @@ jobs:
           REGISTRY_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NOMAD_VAR_PORTS: '{ 80 = "http"}'
           NOMAD_VAR_CHECK_PROTOCOL: 'tcp'
-          NOMAD_SECRETS: '{ "SEKRIT"="${{ secrets.SEKRIT }}" }'
-
+          NOMAD_SECRETS: '{ "GLTOK"="${{ secrets.GLTOK }}", "RSA"="${{ secrets.RSA }}" }'
