@@ -9,4 +9,6 @@ cat >| config.production.json <<EOF
 }
 EOF
 
+sed -i 's/NEWLINE/\n/g' README.md
+
 exec npm start
