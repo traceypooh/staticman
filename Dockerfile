@@ -7,4 +7,6 @@ WORKDIR /app
 
 RUN npm i
 
+COPY entrypoint.sh .
+
 CMD [ "./entrypoint.sh" ]
