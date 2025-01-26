@@ -1,9 +1,12 @@
 #!/bin/zsh -e
 
 # create our config on-demand from our runtime-only environment variables passed in to us
+# eg:
+# rsaPrivateKey: "-----BEGIN RSA PRIVATE KEY-----\nkey\n-----END RSA PRIVATE KEY-----"
+
 cat >| config.production.json <<EOF
 {
-  "gitlabToken": "$GLTOK",
+  "githubToken": "$GHTOK",
   "rsaPrivateKey": "$RSA",
   "port": 80
 }
