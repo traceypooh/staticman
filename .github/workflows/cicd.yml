@@ -7,7 +7,7 @@ jobs:
       NOMAD_VAR_PORTS: '{ 80 = "http"}'
       NOMAD_VAR_CHECK_PROTOCOL: 'tcp'
       NOMAD_VAR_MEMORY: 100 # xxx
-      TEST_DISABLED: true
+      NO_TEST: true
     secrets:
       NOMAD_TOKEN_EXT: ${{ secrets.NOMAD_TOKEN_EXT }}
       NOMAD_SECRETS: '{ "GHTOK"="${{ secrets.GITHUB_TOKEN }}", "RSA"="${{ secrets.RSA }}" }'
