@@ -16,9 +16,12 @@ export NODE_ENV=production
 ## cat RSA_PKEY.key |tr '\n' ' ' |perl -pe 's/(KEY-----) /$1NEWLINE/; s/ (-----END)/NEWLINE$1/'
 
 
+# The docs currently state that the GitHub Application ID in config.production.json is githubAppId; actually, it’s gitHubAppID.
+
+
 cat >| config.production.json <<EOF
 {
-  "githubAppId": "$APP_ID",
+  "githubAppID": "$APP_ID",
   "githubPrivateKey": "$RSA",
   "rsaPrivateKey": "$RSA_PKEY",
   "port": 80
