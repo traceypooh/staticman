@@ -9,7 +9,7 @@ export NODE_ENV=production
 export PORT=80
 export GITHUB_APP_ID=$APP_ID
 # for this first one, eg: https://travistidwell.com/jsencrypt/demo/
-export RSA_PRIVATE_KEY=$(echo "$RSA_PKEY" |sed ':a;N;$!ba;s/NEWLINE/\\n/g')
+export RSA_PRIVATE_KEY=$(echo "$RSA_PKEY" |sed 's/NEWLINE/\\n/g')
 export GITHUB_PRIVATE_KEY=$(echo "$RSA" |base64 -d|sed ':a;N;$!ba;s/\n/\\n/g')
 
 # cat RSA_PKEY.key |tr '\n' ' ' |perl -pe 's/(KEY-----) /$1NEWLINE/; s/ (-----END)/NEWLINE$1/'
