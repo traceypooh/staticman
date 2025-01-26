@@ -4,17 +4,17 @@
 
 export NODE_ENV=production
 
-#export PORT=80
-#export GITHUB_APP_ID=$APP_ID
-# for this first one, eg: https://travistidwell.com/jsencrypt/demo/
-#export RSA_PRIVATE_KEY=$(echo "$RSA_PKEY" |sed 's/NEWLINE/\\n/g')
-#export GITHUB_PRIVATE_KEY=$(echo "$RSA" |sed 's/NEWLINE/\\n/g')
+# For RSA_PRIVATE_KEY, I just made a (random) new key from: https://travistidwell.com/jsencrypt/demo/
 
-## the key env vars need to be base64 encoded for transport, and we'll unpack it to:
-##   "-----BEGIN RSA PRIVATE KEY-----\n[..KEY..]\n-----END RSA PRIVATE KEY-----"
-## export GITHUB_PRIVATE_KEY=$(echo "$RSA" |base64 -d|sed ':a;N;$!ba;s/\n/\\n/g')
-## cat RSA_PKEY.key |tr '\n' ' ' |perl -pe 's/(KEY-----) /$1NEWLINE/; s/ (-----END)/NEWLINE$1/'
-
+# For "transport" issues making the pathway from GH Secrets > nomad > env var inside container,
+# we switch the [NEWLINE] chars to [SPACE] chars, and then swap the 1st & last [SPACE] chars
+# to "NEWLINE" string, eg:
+# -----BEGIN RSA PRIVATE KEY-----NEWLINE<value with SPACE chars>NEWLINE-----END RSA PRIVATE KEY-----
+#
+# with something like this:
+#  cat RSA_PKEY.key |tr '\n' ' ' |perl -pe 's/(KEY-----) /$1NEWLINE/; s/ (-----END)/NEWLINE$1/'
+#
+# We then later swap "NEWLINE" strings to "\\n" in the JSON file below
 
 # The docs currently state that the GitHub Application ID in config.production.json is githubAppId; actually, it’s gitHubAppID.
 
@@ -22,8 +22,8 @@ export NODE_ENV=production
 cat >| config.production.json <<EOF
 {
   "githubAppID": "$APP_ID",
-  "githubPrivateKey": "$RSA",
-  "rsaPrivateKey": "$RSA_PKEY",
+  "githubPrivateKey": "$GH_PRIVATE_KEY",
+  "rsaPrivateKey": "$RSA_PRIVATE_KEY",
   "port": 80
 }
 EOF
