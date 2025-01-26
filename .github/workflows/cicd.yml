@@ -1,10 +1,12 @@
 on: [push, workflow_dispatch]
 jobs:
   cicd:
+    # https://github.com/internetarchive/cicd
     uses: internetarchive/cicd/.github/workflows/cicd.yml@main
     with:
       NOMAD_VAR_PORTS: '{ 80 = "http"}'
       NOMAD_VAR_CHECK_PROTOCOL: 'tcp'
+      NOMAD_VAR_MEMORY: 100 # xxx
     secrets:
-      NOMAD_TOKEN: ${{ secrets.NOMAD_TOKEN }}
+      NOMAD_TOKEN_EXT: ${{ secrets.NOMAD_TOKEN_EXT }}
       NOMAD_SECRETS: '{ "GLTOK"="${{ secrets.GLTOK }}", "RSA"="${{ secrets.RSA }}" }'
