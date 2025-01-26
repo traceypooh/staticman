@@ -19,11 +19,10 @@ export NODE_ENV=production
 # The docs currently state that the GitHub Application ID in config.production.json is githubAppId; actually, it’s gitHubAppID.
 
 
-# hmm, maybe coincidence, but trailing SPACE for one key seems happier (?!) ..
 cat >| config.production.json <<EOF
 {
   "githubAppID": "$APP_ID",
-  "githubPrivateKey": "$GH_PRIVATE_KEY ",
+  "githubPrivateKey": "$GH_PRIVATE_KEY",
   "rsaPrivateKey": "$RSA_PRIVATE_KEY",
   "port": 80
 }
