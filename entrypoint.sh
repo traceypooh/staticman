@@ -31,6 +31,8 @@ EOF
 
 sed -i 's/NEWLINE/\\n/g' config.production.json
 
+unset RSA_PRIVATE_KEY # ensure we use the JSON version, not ENV VAR in npm/node below ;-)
+
 while true; do
   set +e
   npm start
