@@ -1,23 +1,9 @@
 #!/bin/zsh -e
 
-# create our config on-demand from our runtime-only environment variables passed in to us
+# create our config on-demand from our runtime-only environment variable secrets passed in to us
+# from GitHub Actions
 
 export NODE_ENV=production
-
-# For RSA_PRIVATE_KEY, I just made a (random) new key from: https://travistidwell.com/jsencrypt/demo/
-
-# For "transport" issues making the pathway from GH Secrets > nomad > env var inside container,
-# we switch the [NEWLINE] chars to [SPACE] chars, and then swap the 1st & last [SPACE] chars
-# to "NEWLINE" string, eg:
-# -----BEGIN RSA PRIVATE KEY-----NEWLINE<value with SPACE chars>NEWLINE-----END RSA PRIVATE KEY-----
-#
-# with something like this:
-#  cat RSA_PKEY.key |tr '\n' ' ' |perl -pe 's/(KEY-----) /$1NEWLINE/; s/ (-----END)/NEWLINE$1/'
-#
-# We then later swap "NEWLINE" strings to "\\n" in the JSON file below
-
-# The docs currently state that the GitHub Application ID in config.production.json is githubAppId; actually, it’s gitHubAppID.
-
 
 cat >| config.production.json <<EOF
 {
@@ -28,10 +14,14 @@ cat >| config.production.json <<EOF
 }
 EOF
 
+# Swap "NEWLINE" strings to "\n" in the JSON config
 sed -i 's/NEWLINE/\\n/g' config.production.json
 
-unset RSA_PRIVATE_KEY # ensure we use the JSON version, not ENV VAR in npm/node below ;-)
+# ensure we use the JSON config `rsaPrivateKey`, not this misencoded RSA_PRIVATE_KEY
+# environment var, in npm/node below ;-)
+unset RSA_PRIVATE_KEY
 
+# just in case this crashes, make a super cheap restarter loop
 while true; do
   set +e
   npm start
