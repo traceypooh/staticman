@@ -9,9 +9,7 @@ Opted for the recommended option for using a GitHub App
 
 Its private key becomes secret `GH_PRIVATE_KEY` and the app ID becomes secret `APP_ID`.
 
-I created a 2nd private key to secret `RSA_PRIVATE_KEY`.
-
-Just add those 3 GitHub Secrets (`APP_ID`, `GH_PRIVATE_KEY`, `RSA_PRIVATE_KEY`) to your repo in the
+Just add those 2 GitHub Secrets (`APP_ID`, `GH_PRIVATE_KEY`) to your repo in the
 
 `Settings`: `Security`: `Secrets and variables`: `Actions`
 
@@ -20,14 +18,10 @@ See [entrypoint.sh](entrypoint.sh) for more details.
 
 ## Issues needing fixes
 
-The docs currently state that the GitHub Application ID in config.production.json is githubAppId; actually, it’s gitHubAppID.
+The docs currently state that the GitHub Application ID in `config.production.json` is githubAppId; actually, it’s `gitHubAppID`.
 
 
 ## ssh/rsa key details
-
-For the `RSA_PRIVATE_KEY`, I just made a (random) new key from:
-
-https://travistidwell.com/jsencrypt/demo/
 
 For "transport" string encoding issues, making the pathway from GH Secrets to: nomad/orchestration to: env var inside the container,
 we switch the `[NEWLINE]` chars to `[SPACE]` chars, and then swap the 1st & last `[SPACE]` chars

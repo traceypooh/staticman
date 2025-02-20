@@ -10,4 +10,4 @@ jobs:
       NO_TEST: true
     secrets:
       NOMAD_TOKEN_EXT: ${{ secrets.NOMAD_TOKEN_EXT }}
-      NOMAD_SECRETS: '{ "APP_ID"="${{ secrets.APP_ID }}", "RSA_PRIVATE_KEY"="${{ secrets.RSA_PRIVATE_KEY }}", "GH_PRIVATE_KEY"="${{ secrets.GH_PRIVATE_KEY }}" }'
+      NOMAD_SECRETS: '{ "APP_ID"="${{ secrets.APP_ID }}", "GH_PRIVATE_KEY"="${{ secrets.GH_PRIVATE_KEY }}" }'

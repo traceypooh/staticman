@@ -9,17 +9,13 @@ cat >| config.production.json <<EOF
 {
   "githubAppID": "$APP_ID",
   "githubPrivateKey": "$GH_PRIVATE_KEY",
-  "rsaPrivateKey": "$RSA_PRIVATE_KEY",
+  "rsaPrivateKey": "$GH_PRIVATE_KEY",
   "port": 80
 }
 EOF
 
 # Swap "NEWLINE" strings to "\n" in the JSON config
 sed -i 's/NEWLINE/\\n/g' config.production.json
-
-# ensure we use the JSON config `rsaPrivateKey`, not this misencoded RSA_PRIVATE_KEY
-# environment var, in npm/node below ;-)
-unset RSA_PRIVATE_KEY
 
 # just in case this crashes, make a super cheap restarter loop
 while true; do
